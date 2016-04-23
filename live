@@ -1,1 +1,2 @@
-docker-compose -f docker-compose.yml -f live.yml up -d
+docker-compose build
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
