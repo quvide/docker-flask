@@ -13,4 +13,4 @@ This is a docker boilerplate. It consists of nginx as a uwsgi proxy, and as a st
 Type `docker-compose up` and check your browser at `localhost:8080` to see if it's working.
 
 # Notes
-Autoindexing will not work without some additional twiddling with nginx.conf. Autoindexing apparently apparently only works if `try_files $uri/` is specified. This however breaks developing on a port differing from 80 as it creates a redirect for some reason. The redirect is a problem as nginx is running on port 80 inside the image, but 8080 (or something else) on dev machines. The redirect would omit the port.
+You cannot access folders without typing in the trailing slash! Due to the design of nginx, `try_files $uri/` will try to autoindex root and then throw a 403 because it is not allowed thus preventing it from ever reaching flask. Root could be handled with a special case but then redirects would work incorrectly on dev machines if they don't use port 80. You probably won't need folder redirection when already using flask but you can modify the default configuration yourself if required. If you can think of a configuration that solves both of these problems, let me know!
