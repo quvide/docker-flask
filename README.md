@@ -4,5 +4,13 @@ This is a docker boilerplate. It consists of nginx as a uwsgi proxy, and as a st
 * [Docker Engine](https://docs.docker.com/engine/installation/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
+# Configuration
+* `nginx/config/*` will get executed by nginx as config files.
+* `nginx/static/*` will get served by nginx as static files.
+* `flask/app/uwsgi.ini` controls uwsgi.
+
 # Running
 Type `docker-compose up` and check your browser at `localhost:8080` to see if it's working.
+
+# Notes
+You cannot access folders without typing in the trailing slash! Due to the design of nginx, `try_files $uri/` will try to autoindex root and then throw a 403 because it is not allowed thus preventing it from ever reaching flask. Root could be handled with a special case but then redirects would work incorrectly on dev machines if they don't use port 80. You probably won't need folder redirection when already using flask but you can modify the default configuration yourself if required. If you can think of a configuration that solves both of these problems, let me know!

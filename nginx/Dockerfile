@@ -1,4 +1,4 @@
 FROM nginx
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/nginx.conf
-COPY static /usr/share/nginx/html
+COPY config /etc/nginx/conf.d
+COPY static /srv/nginx
